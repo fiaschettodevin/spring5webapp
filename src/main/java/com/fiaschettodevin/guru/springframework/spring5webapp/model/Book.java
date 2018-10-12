@@ -3,6 +3,7 @@ package com.fiaschettodevin.guru.springframework.spring5webapp.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Book {
@@ -19,28 +21,36 @@ public class Book {
 	private Long id;
 	private String title;
 	private String isbn;
-	private String publisher;
 
 	@ManyToMany
 	@JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
 	private Set<Author> authors = new HashSet<>();
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private Publisher publisher;
+
 	public Book() {
 	}
 
-	public Book(String title, String isbn, String publisher) {
+	public Book(String title, String isbn) {
+		super();
+		this.title = title;
+		this.isbn = isbn;
+	}
+
+	public Book(String title, String isbn, Publisher publisher) {
 		super();
 		this.title = title;
 		this.isbn = isbn;
 		this.publisher = publisher;
 	}
 
-	public Book(String title, String isbn, String publisher, Set<Author> authors) {
+	public Book(String title, String isbn, Set<Author> authors, Publisher publisher) {
 		super();
 		this.title = title;
 		this.isbn = isbn;
-		this.publisher = publisher;
 		this.authors = authors;
+		this.publisher = publisher;
 	}
 
 	/**
@@ -86,20 +96,6 @@ public class Book {
 	}
 
 	/**
-	 * @return the publisher
-	 */
-	public String getPublisher() {
-		return this.publisher;
-	}
-
-	/**
-	 * @param publisher the publisher to set
-	 */
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-
-	/**
 	 * @return the authors
 	 */
 	public Set<Author> getAuthors() {
@@ -111,6 +107,20 @@ public class Book {
 	 */
 	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
+	}
+
+	/**
+	 * @return the publisher
+	 */
+	public Publisher getPublisher() {
+		return this.publisher;
+	}
+
+	/**
+	 * @param publisher the publisher to set
+	 */
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
 	/*
@@ -151,5 +161,16 @@ public class Book {
 			return false;
 		}
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Book [id=" + this.id + ", title=" + this.title + ", isbn=" + this.isbn + ", authors=" + this.authors
+				+ ", publisher=" + this.publisher + "]";
 	}
 }

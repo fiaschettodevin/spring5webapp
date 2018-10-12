@@ -132,4 +132,15 @@ public class Author {
 		}
 		return true;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Author [id=" + this.id + ", firstName=" + this.firstName + ", lastName=" + this.lastName + ", books="
+				+ this.books + "]";
+	}
 }
