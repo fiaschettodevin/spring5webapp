@@ -10,7 +10,6 @@ import com.fiaschettodevin.guru.springframework.spring5webapp.model.Book;
 import com.fiaschettodevin.guru.springframework.spring5webapp.model.Publisher;
 import com.fiaschettodevin.guru.springframework.spring5webapp.repository.AuthorRepository;
 import com.fiaschettodevin.guru.springframework.spring5webapp.repository.BookRepository;
-import com.fiaschettodevin.guru.springframework.spring5webapp.repository.PublisherRepository;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -20,9 +19,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
 	@Autowired
 	private BookRepository bookRepository;
-
-	@Autowired
-	private PublisherRepository publisherRepository;
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
